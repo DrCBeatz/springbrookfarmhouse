@@ -1,6 +1,6 @@
 # docker-compose.yml
 
-service:
+services:
   web:
     build: .
     command: gunicorn core.wsgi -b 0.0.0.0:8000
