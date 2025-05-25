@@ -16,9 +16,9 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+          POSTGRES_USER: django
+          POSTGRES_PASSWORD: django
+          POSTGRES_DB: django_Test
         ports:
           - 5432:5432
         options: >-
@@ -38,10 +38,10 @@ jobs:
       DJANGO_SESSION_COOKIE_SECURE: ${{ secrets.DJANGO_SESSION_COOKIE_SECURE }}
       DJANGO_CSRF_COOKIE_SECURE: ${{ secrets.DJANGO_CSRF_COOKIE_SECURE }}
       DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
-      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
-      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
-      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
-      POSTGRES_HOST: localhost
+      POSTGRES_USER: django
+      POSTGRES_PASSWORD: django
+      POSTGRES_DB: django_test
+      POSTGRES_HOST: postgres
       DJANGO_SETTINGS_MODULE: core.settings
 
     steps:
@@ -60,7 +60,7 @@ jobs:
 
       - name: Run migrations
         run: |
-          python manage.py migrate --noinput --check
+          python manage.py migrate --noinput
 
       - name: Run tests
         run: |
