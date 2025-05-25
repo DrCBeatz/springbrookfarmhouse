@@ -72,16 +72,16 @@ WSGI_APPLICATION = 'core.wsgi.application'
 POSTGRES_USER = env.str("POSTGRES_USER")
 POSTGRES_PASSWORD = env.str("POSTGRES_PASSWORD")
 POSTGRES_DB = env.str("POSTGRES_DB")
-POSTGRES_HOST = env.str("POSTGRES_HOST")
+POSTGRES_HOST = env.str("POSTGRES_HOST", default="localhost")
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': POSTGRES_DB,
-        "USER": POSTGRES_USER,
-        "PASSWORD": POSTGRES_PASSWORD,
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": env.str("POSTGRES_DB", "django_test"),
+        "USER": env.str("POSTGRES_USER", "django"),
+        "PASSWORD": env.str("POSTGRES_PASSWORD", "django"),
         "HOST": POSTGRES_HOST,
-        "PORT": '5432',
+        "PORT": "5432",
     }
 }
 
