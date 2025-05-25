@@ -1,0 +1,67 @@
+# ci.yml
+
+name: Django CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main] 
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgres://${{ secrets.POSTGRES_USER }}:${{ secrets.POSTGRES_PASSWORD }}@postgres:5432/${{ secrets.POSTGRES_DB }}
+      DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+      DJANGO_SECURE_SSL_REDIRECT: ${{ secrets.DJANGO_SECURE_SSL_REDIRECT }}
+      SECURE_PROXY_SSL_HEADER: ${{ secrets.SECURE_PROXY_SSL_HEADER }}
+      DJANGO_SECURE_HSTS_SECONDS: ${{ secrets.DJANGO_SECURE_HSTS_SECONDS }}
+      DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS: ${{ secrets.DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS }}
+      DJANGO_SECURE_HSTS_PRELOAD: ${{ secrets.DJANGO_SECURE_HSTS_PRELOAD }}
+      DJANGO_SESSION_COOKIE_SECURE: ${{ secrets.DJANGO_SESSION_COOKIE_SECURE }}
+      DJANGO_CSRF_COOKIE_SECURE: ${{ secrets.DJANGO_CSRF_COOKIE_SECURE }}
+      DJANGO_DEBUG: ${{ secrets.DJANGO_DEBUG }}
+      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+      POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+      POSTGRES_HOST: localhost
+      DJANGO_SETTINGS_MODULE: core.settings
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run migrations
+        run: |
+          python manage.py migrate --noinput --check
+
+      - name: Run tests
+        run: |
+          pytest
