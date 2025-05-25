@@ -1,0 +1,41 @@
+<!--- templates/base.html -->
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Spring Brook Farmhouse Website{% endblock %}</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+        <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}" defer></script>
+        
+        {% block head %}
+        {% endblock %}
+        
+    </head>
+
+    <body>
+        {% include "navbar.html" %}
+        {% block messages %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <div class="p-3 mb-2 bg-gradient text-white bg-{% if msg.level_tag == 'error' %}danger{% else %}{{msg.level_tag}}{% endif %}"
+                    role="alert">
+                    {% if msg.level_tag == "error" %}<i class="fas fa-times-circle me-3"></i>{% else %}<i
+                        class="fas fa-check-circle me-1"></i>{% endif %}{{msg.message}}
+                {% endfor %}
+            {% endif %}
+        {% endblock %}
+
+        <main>
+            {% block content %} 
+            
+            {% endblock %}
+        </main>
+
+        <footer></footer>
+    </body>
+    </html>
