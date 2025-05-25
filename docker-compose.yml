@@ -5,6 +5,7 @@ services:
     build: .
     command: gunicorn core.wsgi -b 0.0.0.0:8000
     environment:
+      - DJANGO_SETTINGS_MODULE=core.settings
       - DJANGO_DEBUG=${DJANGO_DEBUG}
       - DJANGO_SECURE_SSL_REDIRECT=${DJANGO_SECURE_SSL_REDIRECT}
       - SECURE_PROXY_SSL_HEADER=${SECURE_PROXY_SSL_HEADER}
