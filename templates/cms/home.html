@@ -3,32 +3,14 @@
 <!DOCTYPE html>
     {% block title %}Spring Brook Farmhouse | Homepage{% endblock %}
     {% block head %}
+    <!-- Swiper JS -->
+    <script defer src="{% static 'js/swiper-bundle.min.js' %}"></script>
+
+    <!-- Initialize Swiper -->
+    <script defer src="{% static 'js/home.js' %}"></script>
+
     <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
-    <style>
-         html, body {
-        position: relative;
-        height: 100%;
-        }
-
-        .swiper {
-            width: 100%;
-            height: 400px;
-        }
-
-        .swiper-slide {
-            background-position: center;
-            background-size: cover;
-        }
-
-        .swiper-slide img {
-            display: block;
-            width: 100%;
-        }
-
-        .background-green {
-            background-color: #93c54b!important;
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     {% endblock %}
 {% block carousel %}
 
@@ -67,8 +49,6 @@
         
 <div class="container">
              
-
-
 <h1 class="page-header text-center mt-3">Welcome to Spring Brook Farmhouse</h1>
 <hr>
 
@@ -96,29 +76,24 @@ same plants and animals, along with water, sunlight, and air, to form the never 
 
 <br>
 
-
 <h2 class="text-center">Testimonials</h2>
 <br>
 <div class="row">
 <div class="col-md-1 col-lg-2"></div>
 <div class="col-md-10 col-lg-8">
 
-
 <blockquote>
         <p>Our family of 6 has been getting  lamb and beef from Blairich Farm for the last 5 years and are never going back to the grocery store meat isle, not only is the flavor of that farm fresh meat extraordinary (just ask our dinner guests!) But knowing that our meat is local and ethically raised is the icing on the cake,  or more aptly the gravy on the roast!</p>
         <small>Sarah Wright, <cite title="Brooke Valley Perth ON">Brooke Valley Perth ON</cite></small>
     </blockquote>
-
     
     <br>
     <br>
-
 
 <blockquote>
         <p>“I have been buying lamb from Blairich Farm for more than ten years. I have always loved the way they cared for their animals, putting them in the pasture as much as possible, caring for the land, caring for the animals. I was delighted when Stephen expanded the farm to include cattle, chickens and now forest-raised pigs.  The quality of the beef, chicken and pork matches their lamb and I take great comfort in knowing that none of these animals have been treated with the cruelty so common in industrial farming.”</p>
         <small>Peter Showler, <cite title="Ottawa">Ottawa</cite></small>
     </blockquote>
-
     
     <br>
     <br>
@@ -136,53 +111,30 @@ same plants and animals, along with water, sunlight, and air, to form the never 
 
     <div class="list-group list-group-root well">
 
-
-         
         <div class="list-group-item">
-
             <h4 class="list-group-item-heading">Food Products</h4>
         </div>
-        <div class="list-group">
-             
-
+        <div class="list-group">             
             <a href="/product_types/1" class="list-group-item">Beef Products</a>   
-
             <a href="/product_types/2" class="list-group-item">Pork Products</a>   
-
             <a href="/product_types/3" class="list-group-item">Lamb Products</a>   
-
             <a href="/product_types/4" class="list-group-item">Meat Mixer Boxes</a>   
-
             <a href="/product_types/5" class="list-group-item">Organic Fed Chicken</a>   
-
             <a href="/product_types/6" class="list-group-item">Pasture Raised Chicken</a>   
-
             <a href="/product_types/7" class="list-group-item">Eggs</a>         
-
             <a href="/product_types/11" class="list-group-item">Vegetables</a>   
-
             <a href="/product_types/12" class="list-group-item">Sweet Products</a>   
-
             <a href="/product_types/13" class="list-group-item">Meat Subscriptions</a>  
         </div>
 
-        
         <div class="list-group-item">
-
             <h4 class="list-group-item-heading">Non-Food Products</h4>
         </div>
-        <div class="list-group">
-                           
-
+        <div class="list-group">                           
             <a href="/product_types/8" class="list-group-item">Paintings</a>   
-
             <a href="/product_types/9" class="list-group-item">Wooden Creations</a>   
-
             <a href="/product_types/10" class="list-group-item">Pottery</a>        
         </div>
-
-         
-
     </div>
 
   </div>
@@ -207,26 +159,5 @@ same plants and animals, along with water, sunlight, and air, to form the never 
 <div class="col-md-1 col-lg-2"></div>
 </div>
 <p class="text-center text-muted">©2025 Spring Brook Farmhouse - Website by <a href="https://www.drcbeatz.com" target="_blank">Dr. C Beatz</a></p>
-
-<!-- Swiper JS -->
-  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
-
-  <!-- Initialize Swiper -->
-  <script>
-    var swiper = new Swiper(".mySwiper", {
-      spaceBetween: 30,
-      effect: "fade",
-      navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-      },
-      pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-      },
-      autoplay: {
-        delay: 4000,
-      }
-    });
-  </script>
+  
 {% endblock %}
