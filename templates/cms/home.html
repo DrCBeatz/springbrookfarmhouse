@@ -3,17 +3,26 @@
 <!DOCTYPE html>
     {% block title %}Spring Brook Farmhouse | Homepage{% endblock %}
     {% block head %}
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
     <style>
+         html, body {
+        position: relative;
+        height: 100%;
+        }
+
         .swiper {
-        width: 100%;
-        height: 400px;
-        }   
+            width: 100%;
+            height: 400px;
+        }
 
         .swiper-slide {
-        display: flex;
-        justify-content: center;
-        align-items:    center;
+            background-position: center;
+            background-size: cover;
+        }
+
+        .swiper-slide img {
+            display: block;
+            width: 100%;
         }
 
         .background-green {
@@ -24,39 +33,41 @@
 
 {% block content %}
 
-<div class="container mt-1">
+<!-- Swiper -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="{% static 'img/exterior_photo1.jpg' %}" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{% static 'img/exterior_photo2.jpg' %}" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{% static 'img/exterior_photo3.jpg' %}" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{% static 'img/interior_photo1.jpg' %}" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{% static 'img/interior_photo2.jpg' %}" />
+      </div>
+      <div class="swiper-slide">
+        <img src="{% static 'img/interior_photo3.jpg' %}" />
+      </div>
+    </div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+  </div>
 
-    <!-- Swiper -->
-    
-        <div class="swiper mySwiper swiper-fade swiper-initialized swiper-horizontal swiper-watch-progress swiper-backface-hidden">
-            <div class="swiper-wrapper" id="swiper-wrapper-e1a8b10ece6774f12" aria-live="polite" style="transition-duration: 0ms; transition-delay: 0ms;">
-                <div class="swiper-slide swiper-slide-visible swiper-slide-fully-visible swiper-slide-active" role="group" aria-label="1 / 4" style="width: 853px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;">
-                    <img src="{% static 'img/exterior_photo1.jpeg' %}">
-                </div>
-                <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 4" style="width: 853px; opacity: 0; transform: translate3d(-853px, 0px, 0px); transition-duration: 0ms;">
-                    <img src="{% static 'img/exterior_photo2.jpeg' %}">
-                </div>
-                <div class="swiper-slide" role="group" aria-label="3 / 4" style="width: 853px; opacity: 0; transform: translate3d(-1706px, 0px, 0px); transition-duration: 0ms;">
-                    <img src="{% static 'img/interior_photo1.jpeg' %}">
-                    
-                </div>
-                <div class="swiper-slide" role="group" aria-label="4 / 4" style="width: 853px; opacity: 0; transform: translate3d(-2559px, 0px, 0px); transition-duration: 0ms;">
-                    <img src="{% static 'img/interior_photo1.jpeg' %}">
-                    
-                </div>
-            </div>
-            <div class="swiper-button-next" tabindex="0" role="button" aria-label="Next slide" aria-controls="swiper-wrapper-e1a8b10ece6774f12" aria-disabled="false"></div>
-            <div class="swiper-button-prev swiper-button-disabled" tabindex="-1" role="button" aria-label="Previous slide" aria-controls="swiper-wrapper-e1a8b10ece6774f12" aria-disabled="true"></div>
-            <div class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal"><span class="swiper-pagination-bullet swiper-pagination-bullet-active" tabindex="0" role="button" aria-label="Go to slide 1" aria-current="true"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 2"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 3"></span><span class="swiper-pagination-bullet" tabindex="0" role="button" aria-label="Go to slide 4"></span></div>
-            <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span></div>
-        </div>
 
+<div class="container">
         
 <div class="container">
              
 
 
-<h1 class="page-header text-center mt-5">Welcome to Spring Brook Farmhouse</h1>
+<h1 class="page-header text-center mt-3">Welcome to Spring Brook Farmhouse</h1>
 <hr>
 
 <p>Spring Brook Farmhouse is located near Perth, Ontario and provides
@@ -196,32 +207,24 @@ same plants and animals, along with water, sunlight, and air, to form the never 
 <p class="text-center text-muted">©2025 Spring Brook Farmhouse - Website by <a href="https://www.drcbeatz.com" target="_blank">Dr. C Beatz</a></p>
 
 <!-- Swiper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-        
-        <!-- Initialize Swiper -->
-        <script>
-            var swiper = new Swiper(".mySwiper", {
-                observer: true,
-                observeParents: true,
-                spaceBetween: 30,
-                loop: true,
-                centeredSlides: true,
-                effect: "fade",
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev",
-                },
-                pagination: {
-                    el: ".swiper-pagination",
-                    clickable: true,
-                },
-                autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
-                },
-            });
+  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
 
-            
-            </script>
-
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".mySwiper", {
+      spaceBetween: 30,
+      effect: "fade",
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+      },
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+      },
+      autoplay: {
+        delay: 4000,
+      }
+    });
+  </script>
 {% endblock %}
