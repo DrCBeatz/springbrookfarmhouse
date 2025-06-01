@@ -9,14 +9,14 @@ class HomeCarouselPhoto(models.Model):
     title       = models.CharField(
                     max_length=200,
                     validators=[MinLengthValidator(2, "Title must be ≥ 2 characters")]
-                  )
+                )
     image       = models.ImageField(upload_to="carousel/")
     preview     = ImageSpecField(
                     source='image',
                     processors=[Transpose(), ResizeToFit(width=970, upscale=False)],
                     format='JPEG',
                     options={'quality': 70},
-                 )
+                )
     hero        = ImageSpecField(
                     source='image',
                     processors=[Transpose(), ResizeToFit(width=1600, upscale=False)],

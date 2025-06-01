@@ -18,6 +18,7 @@ DEBUG = env.bool("DJANGO_DEBUG", default=False)
 
 ALLOWED_HOSTS = ["*"]
 
+TINYMCE_KEY = env.str("TINYMCE_KEY", default="")
 
 # Application definition
 
@@ -33,9 +34,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'imagekit',
+    'djrichtextfield',
     # Local
     "accounts.apps.AccountsConfig",
     "cms.apps.CmsConfig",
+    "blog.apps.BlogConfig"
 ]
 
 MIDDLEWARE = [
@@ -104,6 +107,17 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+DJRICHTEXTFIELD_CONFIG = {
+    'js': ['//cdn.tiny.cloud/1/' + TINYMCE_KEY + '/tinymce/5/tinymce.min.js'],
+    'init_template': 'djrichtextfield/init/tinymce.js',
+    'settings': {
+        'menubar': False,
+        'plugins': 'link image',
+        'toolbar': 'undo redo | styleselect | forecolor | bold italic | alignleft aligncenter alignright | link image | removeformat ',
+        'width': 800
+    }
+}
 
 AUTH_USER_MODEL = "accounts.CustomUser"
 
