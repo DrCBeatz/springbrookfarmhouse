@@ -17,6 +17,12 @@ class HomeCarouselPhoto(models.Model):
                     format='JPEG',
                     options={'quality': 70},
                  )
+    hero = ImageSpecField(
+         source='image',
+         processors=[Transpose(), ResizeToFit(width=1600, upscale=False)],
+         format='JPEG',
+         options={'quality': 85},
+       )
     thumbnail   = ImageSpecField(
                     source='image',
                     processors=[Transpose(), ResizeToFill(200, 200)],
