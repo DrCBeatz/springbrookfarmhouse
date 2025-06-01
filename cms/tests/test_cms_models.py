@@ -22,6 +22,7 @@ def test_default_ordering(sample_image):
 @pytest.mark.django_db
 def test_image_specs_exist(sample_image, settings):
     obj = HomeCarouselPhoto.objects.create(title="Photo", image=sample_image)
-    # Accessing .hero generates the file on disk
+    obj.hero.generate()
     assert obj.hero.url.endswith(".jpg")
-    assert (Path(settings.MEDIA_ROOT) / obj.hero.name).exists()
+    # ask storage whether the object exists (works for local FS or S3)
+    assert obj.hero.storage.exists(obj.hero.name)
