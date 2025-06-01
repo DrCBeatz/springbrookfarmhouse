@@ -12,35 +12,31 @@
     <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
     {% endblock %}
-{% block carousel %}
 
-  <!-- Swiper -->
+{% block carousel %}
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="{% static 'img/exterior_photo1.jpg' %}" />
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/exterior_photo2.jpg' %}" />
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/exterior_photo3.jpg' %}" />
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/interior_photo1.jpg' %}" />
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/interior_photo2.jpg' %}" />
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/interior_photo3.jpg' %}" />
-      </div>
+
+      {% for slide in home_carousel_photo_list %}
+        <div class="swiper-slide">
+          <img
+            src="{{ slide.image.url }}"
+            alt="{{ slide.alt_text|default:slide.title }}"
+            loading="lazy"
+          >
+        </div>
+      {% empty %}
+        <div class="swiper-slide">
+          <img src="{% static 'img/placeholder.jpg' %}" alt="No photos yet">
+        </div>
+      {% endfor %}
+
     </div>
+
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
     <div class="swiper-pagination"></div>
   </div>
-
 {% endblock %}
 
 {% block content %}
