@@ -1,31 +1,46 @@
 <!--- templates/navbar.html -->
 {% load static %}
 
-<nav class="navbar navbar-expand-lg bg-primary background-green" data-bs-theme="light">
+{% url 'home'                as home_url %}
+{% url 'blog:blog_post_list' as blog_url %}
+
+<nav class="navbar navbar-expand-lg bg-primary background-green">
   <div class="container-fluid">
-    <a class="navbar-brand text-white" href="#">Spring Brook Farmhouse</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+
+    <a class="navbar-brand text-white" href="{{ home_url }}">
+      Spring Brook Farmhouse
+    </a>
+
+    <button class="navbar-toggler" …
+            aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
+
+        {# HOME link #}
         <li class="nav-item">
-          <a class="nav-link active text-white" href="#">Home
-            <span class="visually-hidden">(current)</span>
+          <a class="nav-link
+             {% if request.path == home_url %}active text-white{% else %}text-light{% endif %}"
+             href="{{ home_url }}">
+            Home
           </a>
         </li>
+
+        {# BLOG link (highlight for *any* view in the blog app) #}
         <li class="nav-item">
-          <a class="nav-link" href="#">Products</a>
+          <a class="nav-link
+             {% if request.resolver_match.app_name == 'blog' %}active text-white{% else %}text-light{% endif %}"
+             href="{{ blog_url }}">
+            Blog
+          </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Producers</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Recipes</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Blog</a>
-        </li>
+
+        {# placeholders—style later #}
+        <li class="nav-item"><a class="nav-link text-light" href="#">Products</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="#">Producers</a></li>
+        <li class="nav-item"><a class="nav-link text-light" href="#">Recipes</a></li>
       </ul>
     </div>
   </div>
