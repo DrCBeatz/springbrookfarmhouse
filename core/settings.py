@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'crispy_forms',
     'crispy_bootstrap5',
+    'imagekit',
     # Local
     "accounts.apps.AccountsConfig",
     "cms.apps.CmsConfig",
@@ -126,3 +127,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+if not DEBUG:
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_OBJECT_PARAMETERS = { "CacheControl": "max-age=86400" }
+    AWS_QUERYSTRING_AUTH = False

@@ -4,43 +4,41 @@
 <!DOCTYPE html>
     {% block title %}Spring Brook Farmhouse | Homepage{% endblock %}
     {% block head %}
-    <!-- Swiper JS -->
-    <script defer src="{% static 'js/swiper-bundle.min.js' %}"></script>
-
-    <script defer src="{% static 'js/home.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/swiper-bundle.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    
+    <script defer src="{% static 'js/swiper-bundle.min.js' %}"></script>
+    <script defer src="{% static 'js/home.js' %}"></script>
+
     {% endblock %}
+
 {% block carousel %}
+  {% if home_carousel_photo_list %}
+    <div class="swiper mySwiper">
+      <div class="swiper-wrapper">
 
-  <!-- Swiper -->
-  <div class="swiper mySwiper">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="{% static 'img/exterior_photo1.jpg' %}" />
+        {% for slide in home_carousel_photo_list %}
+          <div class="swiper-slide">
+            <img
+              src="{{ slide.hero.url }}"
+              alt="{{ slide.alt_text|default:slide.title }}"
+              loading="lazy"
+            >
+          </div>
+        {% empty %}
+          <div class="swiper-slide">
+            <img src="{% static 'img/placeholder.jpg' %}" alt="No photos yet">
+          </div>
+        {% endfor %}
+
       </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/exterior_photo2.jpg' %}" />
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/exterior_photo3.jpg' %}" />
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/interior_photo1.jpg' %}" />
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/interior_photo2.jpg' %}" />
-      </div>
-      <div class="swiper-slide">
-        <img src="{% static 'img/interior_photo3.jpg' %}" />
-      </div>
+
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
     </div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
-  </div>
-
+  {% endif %}
 {% endblock %}
 
 {% block content %}
