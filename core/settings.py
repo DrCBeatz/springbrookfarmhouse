@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     # Local
     "accounts.apps.AccountsConfig",
     "cms.apps.CmsConfig",
-    "blog.apps.BlogConfig"
+    "blog.apps.BlogConfig",
+    "recipes.apps.RecipesConfig",
 ]
 
 MIDDLEWARE = [
