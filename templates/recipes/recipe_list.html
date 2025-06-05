@@ -1,0 +1,39 @@
+<!--- templates/recipes/recipe_list.html -->
+{% extends "base.html" %}
+{% block title %}Spring Brook Farmhouse | Recipes{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4 text-center">Farmhouse Recipes</h1>
+
+  <div class="row g-4">
+    {% for recipe in recipes %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          {% if recipe.thumbnail %}
+            <img src="{{ recipe.thumbnail.url }}" class="card-img-top"
+                 alt="{{ recipe.title }}">
+          {% endif %}
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ recipe.title }}</h5>
+            {% if recipe.description %}
+              <p class="card-text small text-muted">
+                {{ recipe.description|striptags|truncatechars:120 }}
+              </p>
+            {% endif %}
+            <a href="{{ recipe.get_absolute_url }}" class="mt-auto btn btn-sm btn-success">
+              View recipe »
+            </a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No recipes yet—check back soon!</p>
+    {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    {% include "partials/pagination.html" %}
+  {% endif %}
+</div>
+{% endblock %}
