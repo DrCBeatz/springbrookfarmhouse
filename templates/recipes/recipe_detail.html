@@ -1,0 +1,34 @@
+<!--- templates/recipes/recipe_detail.html -->
+{% extends "base.html" %}
+{% block title %}Spring Brook Farmhouse | Recipes | {{ recipe.title }}{% endblock %}
+
+{% load static %} {# only if you need static helpers later #}
+
+{% block content %}
+<div class="container mt-4">
+  <article class="mx-auto" style="max-width: 900px;">
+    <h1 class="mb-3">{{ recipe.title }}</h1>
+    <p class="text-muted">
+      Created {{ recipe.created_at|date:"F j, Y" }}
+    </p>
+
+    {% if recipe.image %}
+      <img src="{{ recipe.image.url }}" class="img-fluid rounded mb-4"
+           alt="{{ recipe.title }}">
+    {% endif %}
+
+    {% if recipe.description %}
+      <p class="lead">{{ recipe.description|striptags|linebreaks }}</p>
+      <hr>
+    {% endif %}
+
+    <h3>Ingredients</h3>
+    <pre class="bg-light p-3 rounded">{{ recipe.ingredients|striptags|linebreaks }}</pre>
+
+    <h3 class="mt-4">Instructions</h3>
+    <div class="prose">
+      {{ recipe.instructions|striptags|linebreaks }}
+    </div>
+  </article>
+</div>
+{% endblock %}
