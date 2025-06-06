@@ -74,32 +74,36 @@ same plants and animals, along with water, sunlight, and air, to form the never 
 
 <br>
 
+<!-- templates/cms/home.html -->
+
 <h2 class="text-center">Testimonials</h2>
 <br>
-<div class="row">
-<div class="col-md-1 col-lg-2"></div>
-<div class="col-md-10 col-lg-8">
 
-<blockquote>
-        <p>Our family of 6 has been getting  lamb and beef from Blairich Farm for the last 5 years and are never going back to the grocery store meat isle, not only is the flavor of that farm fresh meat extraordinary (just ask our dinner guests!) But knowing that our meat is local and ethically raised is the icing on the cake,  or more aptly the gravy on the roast!</p>
-        <small>Sarah Wright, <cite title="Brooke Valley Perth ON">Brooke Valley Perth ON</cite></small>
-    </blockquote>
-    
-    <br>
-    <br>
+{% if testimonials %}
+  <div class="row mb-3">
+    <div class="col-md-1 col-lg-2"></div>
+    <div class="col-md-10 col-lg-8">
 
-<blockquote>
-        <p>“I have been buying lamb from Blairich Farm for more than ten years. I have always loved the way they cared for their animals, putting them in the pasture as much as possible, caring for the land, caring for the animals. I was delighted when Stephen expanded the farm to include cattle, chickens and now forest-raised pigs.  The quality of the beef, chicken and pork matches their lamb and I take great comfort in knowing that none of these animals have been treated with the cruelty so common in industrial farming.”</p>
-        <small>Peter Showler, <cite title="Ottawa">Ottawa</cite></small>
-    </blockquote>
-    
-    <br>
-    <br>
+      {% for testimonial in testimonials %}
+      <figure>
+        <blockquote class="blockquote mb-4">
+          <p>{{ testimonial.text|linebreaks }}</p>
+        </blockquote>
+        <figcaption class="blockquote-footer">
+            {{ testimonial.name }}{% if testimonial.location %}, <cite>{{ testimonial.location }}</cite>{% endif %}
+        </figcaption>
+        {% if testimonial.image %}
+          <img src="{{ testimonial.preview.url }}" class="rounded-circle me-2" width="100" height="100" alt="{{ testimonial.name }}">
+        {% endif %}
+      </figure>
+      {% endfor %}
 
-</div>
-<div class="col-md-1 col-lg-2"></div>
-</div>
-
+    </div>
+    <div class="col-md-1 col-lg-2"></div>
+  </div>
+{% else %}
+  <p class="text-center">No testimonials yet. Check back soon!</p>
+{% endif %}
 
 <h2 class="text-center">Browse Product Categories:</h2>
 <br>

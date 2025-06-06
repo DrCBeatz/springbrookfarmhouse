@@ -1,6 +1,6 @@
 # cms/admin.py
 from django.contrib import admin
-from .models import HomeCarouselPhoto
+from .models import HomeCarouselPhoto, Testimonial
 from django.utils.html import format_html
 
 @admin.register(HomeCarouselPhoto)
@@ -21,3 +21,9 @@ class HomeCarouselPhotoAdmin(admin.ModelAdmin):
         if obj.preview:
             return format_html('<img src="{}" style="max-width:300px;" />', obj.preview.url)
         return "—"
+    
+@admin.register(Testimonial)
+class TestimonialAdmin(admin.ModelAdmin):
+    list_display  = ("name", "location", "display_on_homepage", "created_at")
+    list_filter   = ("display_on_homepage",)
+    search_fields = ("name", "location", "text")
