@@ -44,6 +44,8 @@ class HomeCarouselPhoto(models.Model):
 
 
 class Testimonial(models.Model):
+    __test__ = False
+    
     name = models.CharField(
         max_length=120,
         validators=[MinLengthValidator(2, "Name must be ≥ 2 characters")]
