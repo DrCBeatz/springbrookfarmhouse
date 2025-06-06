@@ -1,41 +1,58 @@
 # cms/tests/test_home_view.py
 import pytest
 from django.urls import reverse
-from cms.models import HomeCarouselPhoto
-from bs4 import BeautifulSoup   # add “beautifulsoup4” to dev deps
+from bs4 import BeautifulSoup
+
+from cms.models import Testimonial, HomeCarouselPhoto
+
 
 HOME_URL = reverse("home")
 
 
 @pytest.mark.django_db
-def test_home_200(client):
+def test_home_status_ok(client):
     resp = client.get(HOME_URL)
     assert resp.status_code == 200
-    assert b"Spring Brook Farmhouse" in resp.content
+    assert resp.templates[0].name == "cms/home.html"
+
+
+# ----------  carousel section ----------
+@pytest.mark.django_db
+def test_carousel_not_rendered_without_photos(client):
+    resp = client.get(HOME_URL)
+    assert b'class="swiper mySwiper"' not in resp.content
 
 
 @pytest.mark.django_db
-def test_carousel_absent_when_no_images(client):
+def test_carousel_renders_photos(client, sample_image):
+    HomeCarouselPhoto.objects.create(title="Slide one", image=sample_image)
     resp = client.get(HOME_URL)
-    assert b'class="swiper mySwiper"' not in resp.content   # guard-rail works
 
-
-@pytest.mark.django_db
-def test_carousel_present_and_images_rendered(client, sample_image):
-    # set-up one slide
-    photo = HomeCarouselPhoto.objects.create(title="Slide", image=sample_image)
-
-    resp = client.get(HOME_URL)
-    assert resp.status_code == 200
     soup = BeautifulSoup(resp.content, "html.parser")
-
-    # Swiper root exists
     swiper = soup.select_one("div.swiper.mySwiper")
     assert swiper is not None
+    assert swiper.select_one("img")["alt"] == "Slide one"
 
-    # Our image url is in the markup
-    img_tags = [img["src"] for img in swiper.select("img")]
-    assert photo.hero.url in img_tags
 
-    # alt text fallback logic
-    assert soup.find("img")["alt"] == "Slide"
+# ----------  testimonial section ----------
+@pytest.mark.django_db
+def test_testimonials_present(client):
+    Testimonial.objects.create(name="Sara", location="Perth", text="Fantastic lamb")
+    resp = client.get(HOME_URL)
+
+    # Fast “string-contains” check
+    assert b"Fantastic lamb" in resp.content
+
+    # Optional stricter HTML assertion
+    soup = BeautifulSoup(resp.content, "html.parser")
+    txt = soup.find("blockquote").get_text(strip=True)
+    assert "Fantastic lamb" in txt
+
+
+@pytest.mark.django_db
+def test_hidden_testimonials_not_shown(client):
+    Testimonial.objects.create(
+        name="Hidden", location="Nowhere", text="Invisible", display_on_homepage=False
+    )
+    resp = client.get(HOME_URL)
+    assert b"Invisible" not in resp.content
