@@ -41,3 +41,35 @@ class HomeCarouselPhoto(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Testimonial(models.Model):
+    name = models.CharField(
+        max_length=120,
+        validators=[MinLengthValidator(2, "Name must be ≥ 2 characters")]
+    )
+    location = models.CharField(max_length=120, blank=True)
+    text = models.TextField()
+
+    image = models.ImageField(
+        upload_to="testimonials/",
+        null=True,
+        blank=True
+    )
+    preview = ImageSpecField(
+        source="image",
+        id="cms:image:testimonial_preview",
+        processors=[Transpose(), ResizeToFit(width=200, upscale=False)],
+        format="JPEG",
+        options={"quality": 70},
+    )
+
+    display_on_homepage = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self) -> str:
+        return f"{self.name} – {self.location or 'Unknown location'}"
