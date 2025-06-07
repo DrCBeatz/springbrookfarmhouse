@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "cms.apps.CmsConfig",
     "blog.apps.BlogConfig",
     "recipes.apps.RecipesConfig",
+    "store.apps.StoreConfig",
 ]
 
 MIDDLEWARE = [
