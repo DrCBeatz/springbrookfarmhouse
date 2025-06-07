@@ -1,0 +1,39 @@
+<!-- templates/store/producer_list.html -->
+{% extends "base.html" %}
+{% block title %}Spring Brook Farmhouse | Producers{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4 text-center">Our Producers</h1>
+
+  <div class="row g-4">
+    {% for producer in producers %}
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 shadow-sm">
+          {% if producer.thumbnail %}
+            <img src="{{ producer.thumbnail.url }}" class="card-img-top"
+                 alt="{{ producer.name }}">
+          {% endif %}
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">{{ producer.name }}</h5>
+            {% if producer.description %}
+              <p class="card-text small text-muted">
+                {{ producer.description|truncatechars:120 }}
+              </p>
+            {% endif %}
+            <a href="{{ producer.get_absolute_url }}" class="mt-auto btn btn-sm btn-success">
+              View profile »
+            </a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No producers yet—check back soon!</p>
+    {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    {% include "partials/pagination.html" %}
+  {% endif %}
+</div>
+{% endblock %}

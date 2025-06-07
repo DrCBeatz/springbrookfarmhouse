@@ -17,6 +17,15 @@ def test_str(sample_image):
 
 
 @pytest.mark.django_db
+def test_get_absolute_url(sample_image):
+    p = Producer.objects.create(
+        name="Brook", slug="brook", image=sample_image
+    )
+    expected = reverse("store:producer_detail", kwargs={"slug": "brook"})
+    assert p.get_absolute_url() == expected
+
+
+@pytest.mark.django_db
 def test_default_is_active_flag(sample_image):
     p = Producer.objects.create(name="Active", slug="active", image=sample_image)
     assert p.is_active is True

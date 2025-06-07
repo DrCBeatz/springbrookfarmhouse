@@ -4,6 +4,7 @@
 {% url 'home'                as home_url %}
 {% url 'blog:blog_post_list' as blog_url %}
 {% url 'recipes:recipe_list' as recipe_url %}
+{% url 'store:producer_list' as producer_url %}
 
 <nav class="navbar navbar-expand-lg bg-primary background-green">
   <div class="container-fluid">
@@ -52,9 +53,17 @@
           </a>
         </li>
 
+        {# PRODUCER link (highlight for *any* view in the producer app) #}
+        <li class="nav-item">
+          <a class="nav-link
+             {% if request.resolver_match.app_name == 'store' %}active text-white{% else %}text-light{% endif %}"
+             href="{{ producer_url }}">
+            Producers
+          </a>
+        </li>
+
         {# placeholders—style later #}
         <li class="nav-item"><a class="nav-link text-light" href="#">Products</a></li>
-        <li class="nav-item"><a class="nav-link text-light" href="#">Producers</a></li>
       </ul>
     </div>
   </div>
