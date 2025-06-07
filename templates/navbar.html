@@ -1,5 +1,5 @@
 <!--- templates/navbar.html -->
-{% load static %}
+{% load static nav %}
 
 {% url 'home'                as home_url %}
 {% url 'blog:blog_post_list' as blog_url %}
@@ -26,40 +26,20 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto">
 
-        {# HOME link #}
         <li class="nav-item">
-          <a class="nav-link
-             {% if request.path == home_url %}active text-white{% else %}text-light{% endif %}"
-             href="{{ home_url }}">
-            Home
-          </a>
+          <a class="nav-link {% nav_active 'home' %}" href="{{ home_url }}">Home</a>
         </li>
 
-        {# BLOG link (highlight for *any* view in the blog app) #}
         <li class="nav-item">
-          <a class="nav-link
-             {% if request.resolver_match.app_name == 'blog' %}active text-white{% else %}text-light{% endif %}"
-             href="{{ blog_url }}">
-            Blog
-          </a>
+          <a class="nav-link {% nav_active 'blog:.*' %}" href="{{ blog_url }}">Blog</a>
         </li>
 
-        {# RECIPE link (highlight for *any* view in the recipe app) #}
         <li class="nav-item">
-          <a class="nav-link
-             {% if request.resolver_match.app_name == 'recipe' %}active text-white{% else %}text-light{% endif %}"
-             href="{{ recipe_url }}">
-            Recipes
-          </a>
+          <a class="nav-link {% nav_active 'recipes:.*' %}" href="{{ recipe_url }}">Recipes</a>
         </li>
 
-        {# PRODUCER link (highlight for *any* view in the producer app) #}
         <li class="nav-item">
-          <a class="nav-link
-             {% if request.resolver_match.app_name == 'store' %}active text-white{% else %}text-light{% endif %}"
-             href="{{ producer_url }}">
-            Producers
-          </a>
+          <a class="nav-link {% nav_active 'store:producer_.*' %}" href="{{ producer_url }}">Producers</a>
         </li>
 
         {# placeholders—style later #}

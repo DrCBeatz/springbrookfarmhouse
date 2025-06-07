@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'imagekit',
     'djrichtextfield',
     # Local
+    "core",
     "accounts.apps.AccountsConfig",
     "cms.apps.CmsConfig",
     "blog.apps.BlogConfig",
