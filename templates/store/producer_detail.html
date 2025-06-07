@@ -1,0 +1,39 @@
+<!-- templates/store/producer_detail.html -->
+{% extends "base.html" %}
+{% block title %}Spring Brook Farmhouse | Producers | {{ producer.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <article class="mx-auto" style="max-width: 900px;">
+    <h1 class="mb-3">{{ producer.name }}</h1>
+
+    {% if producer.image %}
+      <img src="{{ producer.image.url }}" class="img-fluid rounded mb-4"
+           alt="{{ producer.name }}">
+    {% endif %}
+
+    {% if producer.description %}
+      <p class="lead">{{ producer.description }}</p>
+    {% endif %}
+
+    <div class="prose mb-4">
+      {{ producer.content|safe }}
+    </div>
+
+    {% if producer.website_url or producer.instagram_url or producer.facebook_url %}
+      <h3 class="mt-5">Find out more</h3>
+      <ul class="list-unstyled">
+        {% if producer.website_url %}
+          <li><a href="{{ producer.website_url }}" target="_blank">Website</a></li>
+        {% endif %}
+        {% if producer.instagram_url %}
+          <li><a href="{{ producer.instagram_url }}" target="_blank">Instagram</a></li>
+        {% endif %}
+        {% if producer.facebook_url %}
+          <li><a href="{{ producer.facebook_url }}" target="_blank">Facebook</a></li>
+        {% endif %}
+      </ul>
+    {% endif %}
+  </article>
+</div>
+{% endblock %}

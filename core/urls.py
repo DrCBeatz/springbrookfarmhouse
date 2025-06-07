@@ -8,6 +8,7 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('cms.urls')),
+    path('', include(("store.urls", "store"), namespace="store")),
     path("blog/", include("blog.urls", namespace="blog")),
     path("recipes/", include("recipes.urls", namespace="recipes")),
     path('djrichtextfield/', include('djrichtextfield.urls')),

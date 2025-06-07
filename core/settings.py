@@ -36,10 +36,12 @@ INSTALLED_APPS = [
     'imagekit',
     'djrichtextfield',
     # Local
+    "core",
     "accounts.apps.AccountsConfig",
     "cms.apps.CmsConfig",
     "blog.apps.BlogConfig",
     "recipes.apps.RecipesConfig",
+    "store.apps.StoreConfig",
 ]
 
 MIDDLEWARE = [
