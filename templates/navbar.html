@@ -5,6 +5,7 @@
 {% url 'blog:blog_post_list' as blog_url %}
 {% url 'recipes:recipe_list' as recipe_url %}
 {% url 'store:producer_list' as producer_url %}
+{% url 'store:product_list' as product_url %}
 
 <nav class="navbar navbar-expand-lg bg-primary background-green">
   <div class="container-fluid">
@@ -39,11 +40,13 @@
         </li>
 
         <li class="nav-item">
+          <a class="nav-link {% nav_active 'store:product_.*' %}" href="{{ product_url }}">Products</a>
+        </li>
+
+        <li class="nav-item">
           <a class="nav-link {% nav_active 'store:producer_.*' %}" href="{{ producer_url }}">Producers</a>
         </li>
 
-        {# placeholders—style later #}
-        <li class="nav-item"><a class="nav-link text-light" href="#">Products</a></li>
       </ul>
     </div>
   </div>
