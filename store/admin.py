@@ -5,7 +5,7 @@ from django.utils.html import format_html
 
 from djrichtextfield.widgets import RichTextWidget
 
-from .models import Producer, Category, ProductType
+from .models import Producer, Category, ProductType, Product
 
 
 # ──────────────────────────────
@@ -101,3 +101,76 @@ class ProductTypeAdmin(admin.ModelAdmin):
     autocomplete_fields = ("category",)
 
     readonly_fields = ("created_at",)
+
+
+# ──────────────────────────────
+#  Product
+# ──────────────────────────────
+@admin.register(Product)
+class ProductAdmin(admin.ModelAdmin):
+    list_display   = (
+        "thumb", "title", "category", "product_type", "producer",
+        "price", "has_discount", "discount_price", "stock", "enabled",
+        "updated_at",
+    )
+    list_filter    = (
+        "enabled", "has_discount", "category", "product_type", "producer",
+        "is_inventory_item", "eligible_for_delivery",
+    )
+    list_editable  = ("price", "discount_price", "stock", "enabled")
+    search_fields  = ("title", "slug", "description",
+                      "category__title", "product_type__title", "producer__name")
+    autocomplete_fields = ("category", "product_type", "producer", "featured_recipe")
+    prepopulated_fields = {"slug": ("title",)}
+
+    readonly_fields = ("preview_tag", "created_at", "updated_at")
+    ordering        = ("title",)
+    list_select_related = ("category", "product_type", "producer")
+
+    fieldsets = (
+        (None, {
+            "fields": (
+                ("title", "slug"),
+                ("category", "product_type", "producer"),
+                "description",
+            )
+        }),
+        ("Pricing & inventory", {
+            "fields": (
+                ("price", "has_discount", "discount_price"),
+                ("stock", "is_inventory_item", "eligible_for_delivery"),
+                "enabled",
+            )
+        }),
+        ("Media", {
+            "fields": ("image", "preview_tag", "anchor"),
+        }),
+        ("Extras", {
+            "fields": ("featured_recipe",),
+        }),
+        ("Timestamps", {
+            "fields": ("created_at", "updated_at"),
+            "classes": ("collapse",),
+        }),
+    )
+
+    # --- helpers -------------------------------------------------------------
+    def thumb(self, obj):
+        if obj.thumbnail:
+            return format_html(
+                '<img src="{}" width="45" height="45" style="object-fit:cover;" />',
+                obj.thumbnail.url,
+            )
+        return "—"
+    thumb.short_description = "Thumb"
+    thumb.admin_order_field = "title"
+
+    def preview_tag(self, obj):
+        if obj.preview:
+            return format_html('<img src="{}" style="max-width:300px;" />', obj.preview.url)
+        return "—"
+
+    # Speed up changelist with only the columns we need
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        return qs.select_related("category", "product_type", "producer") 

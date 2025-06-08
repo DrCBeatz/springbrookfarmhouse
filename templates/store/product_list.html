@@ -1,0 +1,42 @@
+<!--- templates/store/product_list.html -->
+{% extends "base.html" %}
+{% block title %}Products – Spring Brook Farmhouse{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <h1 class="mb-4 text-center">Products</h1>
+
+  <div class="row g-4">
+    {% for product in products %}
+      <div class="col-6 col-md-4 col-lg-3">
+        <div class="card h-100 shadow-sm">
+          {% if product.thumbnail %}
+            <img src="{{ product.thumbnail.url }}" class="card-img-top"
+                 alt="{{ product.title }}">
+          {% endif %}
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title mb-1">{{ product.title }}</h6>
+
+            <p class="text-success fw-semibold mb-2">
+              ${{ product.effective_price|floatformat:2 }}
+              {% if product.has_discount %}
+                <del class="text-muted small ms-1">${{ product.price|floatformat:2 }}</del>
+              {% endif %}
+            </p>
+
+            <a href="{{ product.get_absolute_url }}" class="btn btn-sm btn-success mt-auto">
+              Details »
+            </a>
+          </div>
+        </div>
+      </div>
+    {% empty %}
+      <p>No products available – check back soon!</p>
+    {% endfor %}
+  </div>
+
+  {% if is_paginated %}
+    {% include "partials/pagination.html" %}
+  {% endif %}
+</div>
+{% endblock %}
