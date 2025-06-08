@@ -7,6 +7,7 @@
 <div class="container mt-4">
   <article class="mx-auto" style="max-width: 900px;">
     <h1 class="mb-3">{{ post.title }}</h1>
+    <hr>
     <p class="text-muted">
       {{ post.published_at|date:"F j, Y" }}
       &nbsp;·&nbsp; by {{ post.author.get_full_name|default:post.author.username }}
