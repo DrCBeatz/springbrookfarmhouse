@@ -74,10 +74,8 @@ same plants and animals, along with water, sunlight, and air, to form the never 
 
 <br>
 
-<!-- templates/cms/home.html -->
 
 <h2 class="text-center">Testimonials</h2>
-<br>
 
 {% if testimonials %}
   <div class="row mb-3">
@@ -105,61 +103,20 @@ same plants and animals, along with water, sunlight, and air, to form the never 
   <p class="text-center">No testimonials yet. Check back soon!</p>
 {% endif %}
 
-<h2 class="text-center">Browse Product Categories:</h2>
-<br>
-<div class="row">
-<div class="col-md-1 col-lg-2"></div>
-  <div class="col-md-10 col-lg-8">
-
-    <div class="list-group list-group-root well">
-
-        <div class="list-group-item">
-            <h4 class="list-group-item-heading">Food Products</h4>
-        </div>
-        <div class="list-group">             
-            <a href="/product_types/1" class="list-group-item">Beef Products</a>   
-            <a href="/product_types/2" class="list-group-item">Pork Products</a>   
-            <a href="/product_types/3" class="list-group-item">Lamb Products</a>   
-            <a href="/product_types/4" class="list-group-item">Meat Mixer Boxes</a>   
-            <a href="/product_types/5" class="list-group-item">Organic Fed Chicken</a>   
-            <a href="/product_types/6" class="list-group-item">Pasture Raised Chicken</a>   
-            <a href="/product_types/7" class="list-group-item">Eggs</a>         
-            <a href="/product_types/11" class="list-group-item">Vegetables</a>   
-            <a href="/product_types/12" class="list-group-item">Sweet Products</a>   
-            <a href="/product_types/13" class="list-group-item">Meat Subscriptions</a>  
-        </div>
-
-        <div class="list-group-item">
-            <h4 class="list-group-item-heading">Non-Food Products</h4>
-        </div>
-        <div class="list-group">                           
-            <a href="/product_types/8" class="list-group-item">Paintings</a>   
-            <a href="/product_types/9" class="list-group-item">Wooden Creations</a>   
-            <a href="/product_types/10" class="list-group-item">Pottery</a>        
-        </div>
-    </div>
-
+<div class="row mb-2">
+  <div class="col-12 d-flex justify-content-center">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item active">Home</li>
+      <li class="breadcrumb-item"><a href="{% url 'blog:blog_post_list' %}">Blog</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'recipes:recipe_list' %}">Recipes</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'store:producer_list' %}">Products</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'store:product_list' %}">Producers</a></li>
+      <li class="breadcrumb-item"><a href="#">Testimonials</a></li>
+      <li class="breadcrumb-item"><a href="#">Contact Us</a></li>
+    </ol>
   </div>
-  <div class="col-md-1 col-lg-2"></div>
-  </div>
+</div>
 
-<div class="row">
-<div class="col-md-1 col-lg-2"></div>
-<div class="col-md-10 col-lg-8">
-<ol class="breadcrumb">
-    <li class="active">Home</li>
-    <li><a href="/products/">Products</a></li>
-    <li><a href="/pickup_location/">Pickup Location</a></li>
-    <li><a href="/producers/">Producers</a></li>
-    <li><a href="/recipes/">Recipes</a></li>
-    <li><a href="/blog_posts/">Blog</a></li>
-    <li><a href="/testimonials/">Testimonials</a></li>
-    <li><a href="/contact/">Contact Us</a></li>
-    <li><a href="/faq/">FAQ</a></li>
-</ol>
-</div>
-<div class="col-md-1 col-lg-2"></div>
-</div>
-<p class="text-center text-muted">©2025 Spring Brook Farmhouse - Website by <a href="https://www.drcbeatz.com" target="_blank">Dr. C Beatz</a></p>
+<p class="text-center text-muted mb-5">©2025 Spring Brook Farmhouse - Website by <a href="https://www.drcbeatz.com" target="_blank">Dr. C Beatz</a></p>
   
 {% endblock %}
