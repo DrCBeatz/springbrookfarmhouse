@@ -1,25 +1,25 @@
 /* static/css/home.css */
 
-html, body {
-    position: relative;
-    height: 100%;
-}
-
 .swiper {
-    width: 100%;
-    height: 400px;
-}
-
-.swiper-slide {
-    background-position: center;
-    background-size: cover;
+  position: relative;
+  width: 100%;
+  height: 60vh;
+  overflow: hidden;
+  --swiper-pagination-color: #81b33a;
+  --swiper-navigation-color: black;
 }
 
 .swiper-slide img {
-    display: block;
-    width: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.background-green {
-    background-color: #93c54b!important;
+.swiper .swiper-pagination {
+  position: absolute;
+  bottom: 16px;
+  left:  0;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
 }
